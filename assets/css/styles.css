@@ -1848,6 +1848,7 @@ h6,
 /*--------- Abstracts variable ---------- */
 header {
   position: sticky;
+  top: 0;
   z-index: 100;
   transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -1860,6 +1861,14 @@ header.header-sticky {
 .tf-header {
   padding-top: 48px;
   margin-bottom: -116px;
+  transform: translateY(0);
+  will-change: transform, opacity;
+}
+
+.tf-header.header-hidden {
+  transform: translateY(-140%);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .tf-header .header-inner {
@@ -5549,10 +5558,65 @@ button.animate-btn::after,
   letter-spacing: 0;
 }
 
-.section-about-us .col-left img {
-  width: 100%;
+.section-about-us .col-left .about-globe-location-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-left: 10px;
+  padding: 10px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--white);
+  font-weight: 600;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(10px);
+}
+.section-about-us .col-left .about-globe-location-btn:hover,
+.section-about-us .col-left .about-globe-location-btn:focus-visible,
+.section-about-us .col-left .about-globe-location-btn.is-active {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: var(--white);
+}
+
+.section-about-us .col-left .about-globe-wrap {
+  position: relative;
+  width: min(100%, 540px);
+  max-width: 100%;
   border-radius: 38px;
-  margin-top: -25px;
+  margin-top: 4px;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+  overflow: hidden;
+  aspect-ratio: 1/1;
+  will-change: transform, opacity, filter;
+  background: radial-gradient(circle at 50% 52%, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0) 58%);
+}
+.section-about-us .col-left .about-globe-viz {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.section-about-us .col-left .about-globe-viz canvas {
+  display: block;
+}
+.section-about-us .col-left .about-globe-fallback {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 38px;
+  object-fit: contain;
+  object-position: center;
+}
+.section-about-us .col-left .about-globe-wrap.is-webgl-ready .about-globe-viz {
+  opacity: 1;
+}
+.section-about-us .col-left .about-globe-wrap.is-webgl-ready .about-globe-fallback {
+  opacity: 0;
 }
 
 .section-about-us .review-box {

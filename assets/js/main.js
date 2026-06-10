@@ -218,6 +218,30 @@
         });
     };
 
+    var headerOnScroll = () => {
+        var $header = $(".tf-header");
+        if (!$header.length) return;
+
+        var lastScrollTop = $(window).scrollTop();
+        var scrollThreshold = 8;
+        var topOffset = 80;
+
+        $(window).on("scroll", function () {
+            var currentScrollTop = $(this).scrollTop();
+            var delta = currentScrollTop - lastScrollTop;
+
+            if (Math.abs(delta) < scrollThreshold) return;
+
+            if (currentScrollTop <= topOffset || delta < 0) {
+                $header.removeClass("header-hidden");
+            } else {
+                $header.addClass("header-hidden");
+            }
+
+            lastScrollTop = currentScrollTop;
+        });
+    };
+
     /* Open Menu
     -------------------------------------------------------------------------*/
     var openMbMenu = () => {
@@ -355,6 +379,7 @@
         goTop();
         settingColor();
         setActiveNavLink();
+        headerOnScroll();
         openMbMenu();
         switchPrice();
         services_btn();
