@@ -254,14 +254,42 @@
     /* Open Menu
     -------------------------------------------------------------------------*/
     var openMbMenu = () => {
+        var menuScrollTop = 0;
+
+        var lockPageScroll = function () {
+            menuScrollTop = $(window).scrollTop();
+            $("html, body").addClass("mobile-menu-open");
+            $("body").css({
+                position: "fixed",
+                top: -menuScrollTop + "px",
+                left: 0,
+                right: 0,
+                width: "100%",
+            });
+        };
+
+        var unlockPageScroll = function () {
+            $("html, body").removeClass("mobile-menu-open");
+            $("body").css({
+                position: "",
+                top: "",
+                left: "",
+                right: "",
+                width: "",
+            });
+            $(window).scrollTop(menuScrollTop);
+        };
+
         $(".open-mb-menu").on("click", function () {
             $(".offcanvas-menu").addClass("show");
             $("body").addClass("overflow-hidden");
+            lockPageScroll();
         });
 
         $(".close-mb-menu").on("click", function () {
             $(".offcanvas-menu").removeClass("show");
             $("body").removeClass("overflow-hidden");
+            unlockPageScroll();
         });
 
         /* Close on backdrop click (outside the panel) */
@@ -269,6 +297,7 @@
             if (!$(e.target).closest(".mb-container").length) {
                 $(this).removeClass("show");
                 $("body").removeClass("overflow-hidden");
+                unlockPageScroll();
             }
         });
     };

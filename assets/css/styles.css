@@ -1578,6 +1578,13 @@ h6,
   overflow: visible !important;
 }
 
+html.mobile-menu-open,
+body.mobile-menu-open {
+  overflow: hidden !important;
+  height: 100%;
+  overscroll-behavior: none;
+}
+
 /*------------ Component ---------------- */
 /*------------ Layout ---------------- */
 /* ---------------------------------------------------------
@@ -6023,6 +6030,18 @@ button.animate-btn::after,
   transition: all 1s;
 }
 
+.featured-works-item .image.live-demo {
+  aspect-ratio: 16/9;
+  background: var(--neutral-900);
+}
+
+.featured-works-item .image.live-demo iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 .featured-works-item .image:after {
   content: "";
   position: absolute;
@@ -6053,6 +6072,7 @@ button.animate-btn::after,
   backdrop-filter: blur(44px);
   opacity: 0;
   visibility: hidden;
+  z-index: 2;
 }
 
 .featured-works-item .image .view-project .icon {
