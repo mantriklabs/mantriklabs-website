@@ -25,14 +25,36 @@ header {
         pointer-events: none;
     }
 
+    &.header-compact {
+        .logo-site,
+        .header-actions {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .header-inner {
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+    }
+
     .header-shell {
-        max-width: 1040px;
+        position: relative;
+        width: 100%;
+        max-width: none;
         margin-left: auto;
         margin-right: auto;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        gap: 24px;
+        padding: 0 48px;
+    }
+
+    .logo-site {
+        position: absolute;
+        left: 48px;
+        top: 50%;
+        transform: translateY(-50%);
     }
 
     .header-inner {
@@ -51,6 +73,10 @@ header {
         font-size: 20px;
     }
     .header-actions {
+        position: absolute;
+        right: 48px;
+        top: 50%;
+        transform: translateY(-50%);
         align-items: center;
     }
     &.header2 {
@@ -68,6 +94,16 @@ header {
         .header-shell {
             max-width: unset !important;
             margin: 0 32px;
+            padding: 0;
+            justify-content: space-between;
+        }
+        .logo-site {
+            position: static;
+            transform: none;
+        }
+        .header-actions {
+            position: static;
+            transform: none;
         }
         .header-inner {
             display: none;

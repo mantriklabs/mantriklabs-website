@@ -1878,14 +1878,35 @@ header.header-sticky {
   pointer-events: none;
 }
 
+.tf-header.header-compact .logo-site,
+.tf-header.header-compact .header-actions {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.tf-header.header-compact .header-inner {
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
 .tf-header .header-shell {
-  max-width: 1040px;
+  position: relative;
+  width: 100%;
+  max-width: none;
   margin-left: auto;
   margin-right: auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  gap: 24px;
+  padding: 0 48px;
+}
+
+.tf-header .logo-site {
+  position: absolute;
+  left: 48px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .tf-header .header-inner {
@@ -1905,6 +1926,10 @@ header.header-sticky {
 }
 
 .tf-header .header-actions {
+  position: absolute;
+  right: 48px;
+  top: 50%;
+  transform: translateY(-50%);
   align-items: center;
 }
 
@@ -1926,6 +1951,18 @@ header.header-sticky {
   .tf-header .header-shell {
     max-width: unset !important;
     margin: 0 32px;
+    padding: 0;
+    justify-content: space-between;
+  }
+
+  .tf-header .logo-site {
+    position: static;
+    transform: none;
+  }
+
+  .tf-header .header-actions {
+    position: static;
+    transform: none;
   }
 
   .tf-header .header-inner {

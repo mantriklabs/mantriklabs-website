@@ -235,15 +235,15 @@
             if (Math.abs(delta) < scrollThreshold) return;
 
             if (currentScrollTop <= topOffset) {
-                $header.removeClass("header-hidden");
+                $header.removeClass("header-hidden header-compact");
                 upwardScrollDistance = 0;
             } else if (delta > 0) {
-                $header.addClass("header-hidden");
+                $header.addClass("header-hidden").removeClass("header-compact");
                 upwardScrollDistance = 0;
             } else {
                 upwardScrollDistance += Math.abs(delta);
                 if (upwardScrollDistance >= showAfterUpScroll) {
-                    $header.removeClass("header-hidden");
+                    $header.removeClass("header-hidden").addClass("header-compact");
                 }
             }
 
