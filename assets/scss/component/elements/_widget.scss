@@ -905,7 +905,7 @@
 }
 
 .team-item {
-    padding: 40px;
+    padding: 20px;
     border-radius: 40px;
     text-align: center;
     background: linear-gradient(0deg, var(--neutral-900, #18181B), var(--neutral-900, #18181B)),
@@ -914,6 +914,10 @@
     0px 3px 3px 0px #0000001A,
     0px -8px 0px 0px #111111 inset,
     0px 4px 0px 0px #FFFFFF1A inset;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 430px !important;
     .image {
         display: flex;
         border: 1px solid #FFFFFF40;
@@ -925,11 +929,20 @@
         0px 41.78px 33.42px 0px #00000026,
         0px 100px 80px 0px #00000026;
         margin-bottom: 28px;
+        width: 100%;
+        height: 225px;
+        flex: 0 0 225px;
+        overflow: hidden;
         img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: top;
             border-radius: 24px;
+        }
+        img.portrait-zoom {
+            transform: scale(1.55);
+            transform-origin: top center;
         }
     }
     .name {
@@ -943,7 +956,11 @@
     }
     .sub {
         color: var(--neutral-400);
-        margin-bottom: 36px;
+        margin-bottom: 16px;
+        flex: 1;
+    }
+    .tf-social {
+        margin-top: auto;
     }
     &.style-1 {
         text-align: start;
@@ -972,6 +989,50 @@
     @include res(md) {
         padding: 20px;
         border-radius: 28px;
+    }
+}
+
+.section-team {
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 330px));
+        gap: 24px;
+        align-items: stretch;
+        justify-content: center;
+        max-width: 1140px;
+        margin-top: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .col {
+        display: flex;
+        width: 100%;
+        max-width: none;
+        padding: 0;
+        margin-top: 0;
+    }
+    .team-grid > .col > .team-item {
+        width: 330px;
+        min-width: 330px;
+        max-width: 330px;
+        height: 430px !important;
+        padding: 20px;
+        border-radius: 40px;
+    }
+    @media (max-width: 991px) {
+        .team-grid {
+            grid-template-columns: repeat(2, minmax(0, 330px));
+        }
+    }
+    @media (max-width: 575px) {
+        .team-grid {
+            grid-template-columns: 1fr;
+        }
+        .team-grid > .col > .team-item {
+            width: 100%;
+            min-width: 0;
+            max-width: none;
+        }
     }
 }
 
