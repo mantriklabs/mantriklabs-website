@@ -439,6 +439,25 @@
             mq.addEventListener("change", updateViewBox);
         });
     };
+    // load live demos only after explicit interaction
+    var liveDemoPreview = function () {
+        document.querySelectorAll(".live-demo").forEach((demo) => {
+            const iframe = demo.querySelector("iframe[data-src]");
+            const trigger = demo.querySelector(".live-demo-trigger");
+
+            if (!iframe || !trigger || demo.dataset.liveDemoBound === "true") return;
+
+            demo.dataset.liveDemoBound = "true";
+            trigger.addEventListener("click", function () {
+                if (!iframe.src) {
+                    iframe.src = iframe.dataset.src;
+                }
+
+                demo.classList.add("is-loaded");
+                trigger.setAttribute("hidden", "hidden");
+            });
+        });
+    };
 
     // Dom Ready
     $(function () {
@@ -455,6 +474,7 @@
         counter();
         dot();
         viewbox();
+        liveDemoPreview();
         if (typeof window.initSwipers === 'function') {
             window.initSwipers();
         }
