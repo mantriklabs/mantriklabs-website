@@ -1,7 +1,6 @@
 /**
  *  infiniteSlide
  *  updateClock
- *  cursorTrail
  *  goTop
  *  settingColor
  *  openMbMenu
@@ -79,128 +78,6 @@
         }
 
         startClocks(".clock");
-    };
-    /* Cursor Trail
-    -------------------------------------------------------------------------*/
-    var cursorTrail = () => {
-        const canvas = document.getElementById("trail");
-        if (!canvas) return;
-
-        const ctx = canvas.getContext("2d");
-        let w = window.innerWidth,
-            h = window.innerHeight;
-        canvas.width = w;
-        canvas.height = h;
-
-        let points = [];
-        let ripples = [];
-        let idleTimer = null;
-        let animationFrame = null;
-        let isEnabled = localStorage.getItem("cursorEnabled") === "true";
-
-        window.addEventListener("resize", () => {
-            w = window.innerWidth;
-            h = window.innerHeight;
-            canvas.width = w;
-            canvas.height = h;
-        });
-
-        window.addEventListener("mousemove", (e) => {
-            if (!isEnabled) return;
-
-            points.push({ x: e.clientX, y: e.clientY });
-            if (points.length > 10) points.shift();
-
-            clearTimeout(idleTimer);
-            idleTimer = setTimeout(() => {
-                points = [];
-            }, 100);
-
-            startDrawing();
-        });
-
-        window.addEventListener("click", (e) => {
-            if (!isEnabled) return;
-
-            ripples.push({
-                x: e.clientX,
-                y: e.clientY,
-                radius: 0,
-                alpha: 1,
-            });
-            startDrawing();
-        });
-
-        function draw() {
-            ctx.clearRect(0, 0, w, h);
-
-            if (points.length > 1) {
-                ctx.beginPath();
-                ctx.moveTo(points[0].x, points[0].y);
-                for (let i = 1; i < points.length; i++) {
-                    ctx.lineTo(points[i].x, points[i].y);
-                }
-                let last = points[points.length - 1];
-                let grad = ctx.createLinearGradient(points[0].x, points[0].y, last.x, last.y);
-                grad.addColorStop(0, "black");
-                grad.addColorStop(1, "white");
-                ctx.strokeStyle = grad;
-                ctx.lineWidth = 3;
-                ctx.lineCap = "round";
-                ctx.stroke();
-            }
-
-            ripples.forEach((r, i) => {
-                ctx.beginPath();
-                ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
-                ctx.strokeStyle = `rgba(255,255,255,${r.alpha})`;
-                ctx.lineWidth = 2;
-                ctx.stroke();
-                r.radius += 1;
-                r.alpha -= 0.02;
-            });
-            ripples = ripples.filter((r) => r.alpha > 0);
-
-            if (isEnabled && (points.length > 1 || ripples.length > 0)) {
-                animationFrame = requestAnimationFrame(draw);
-            } else {
-                animationFrame = null;
-            }
-        }
-
-        function startDrawing() {
-            if (!animationFrame) {
-                animationFrame = requestAnimationFrame(draw);
-            }
-        }
-
-        function setCursorEnabled(enabled) {
-            isEnabled = enabled;
-            localStorage.setItem("cursorEnabled", enabled ? "true" : "false");
-            $("#trail").toggle(enabled);
-
-            if (enabled) {
-                startDrawing();
-            } else {
-                points = [];
-                ripples = [];
-                clearTimeout(idleTimer);
-                cancelAnimationFrame(animationFrame);
-                animationFrame = null;
-                ctx.clearRect(0, 0, w, h);
-            }
-        }
-
-        // restore saved cursor state on every page
-        if (isEnabled) {
-            $("#trail").show();
-            $("#cursor").prop("checked", true);
-            startDrawing();
-        }
-
-        $("#cursor").on("change", function () {
-            setCursorEnabled($(this).is(":checked"));
-        });
     };
     /* Setting Color
     -------------------------------------------------------------------------*/
@@ -463,7 +340,6 @@
     $(function () {
         infiniteSlide();
         updateClock();
-        cursorTrail();
         goTop();
         settingColor();
         setActiveNavLink();

@@ -362,71 +362,6 @@
         }
     };
 
-    var mouseHover = () => {
-        if ($(".main-mouse-hover").length > 0) {
-            $(".main-mouse-hover").each(function () {
-                const $container = $(this);
-                const $mouseEl = $container.find(".tf-mouse");
-
-                let currentX, currentY, targetX, targetY;
-                let animationFrame;
-
-                if (!$mouseEl.hasClass("mode-2")) {
-                    currentX = $container.width() / 2;
-                    currentY = $container.height() / 2;
-                    targetX = currentX;
-                    targetY = currentY;
-
-                    $mouseEl.css({ left: currentX + "px", top: currentY + "px" });
-                }
-
-                $container.on("mouseenter", function () {
-                    $mouseEl.addClass("hover");
-                    if ($mouseEl.hasClass("mode-2")) {
-                        $mouseEl.css({ opacity: 1 });
-                    }
-                });
-
-                $container.on("mousemove", function (e) {
-                    const rect = this.getBoundingClientRect();
-                    targetX = e.clientX - rect.left;
-                    targetY = e.clientY - rect.top;
-
-                    if ($mouseEl.hasClass("mode-2") && currentX === null) {
-                        currentX = targetX;
-                        currentY = targetY;
-                    }
-
-                    if (!animationFrame) animate();
-                });
-
-                $container.on("mouseleave", function () {
-                    $mouseEl.removeClass("hover");
-                    if ($mouseEl.hasClass("mode-2")) {
-                        $mouseEl.css({ opacity: 0 });
-                    } else {
-                        targetX = $container.width() / 2;
-                        targetY = $container.height() / 2;
-                        if (!animationFrame) animate();
-                    }
-                });
-
-                function animate() {
-                    currentX += (targetX - currentX) * 0.1;
-                    currentY += (targetY - currentY) * 0.1;
-
-                    $mouseEl.css({ left: currentX + "px", top: currentY + "px" });
-
-                    if (Math.abs(targetX - currentX) > 0.5 || Math.abs(targetY - currentY) > 0.5) {
-                        animationFrame = requestAnimationFrame(animate);
-                    } else {
-                        animationFrame = null;
-                    }
-                }
-            });
-        }
-    };
-
     var animateBox = () => {
         if ($(".animate-box").length > 0) {
             gsap.registerPlugin(ScrollTrigger);
@@ -1296,7 +1231,6 @@
         changetext();
         scrollEffectFade();
         aboutGlobeAnimation();
-        mouseHover();
         animateBox();
         techProgress();
         animationGrow();

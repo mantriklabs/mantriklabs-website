@@ -6369,21 +6369,6 @@ button.animate-btn::after,
   }
 }
 
-.cursor-trail {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 9999;
-}
-
-@media (max-width: 1199px) {
-  .cursor-trail {
-    display: none;
-  }
-}
-
 .section-about-me {
   position: relative;
 }
@@ -7356,7 +7341,8 @@ button.animate-btn::after,
   opacity: 0;
 }
 
-.main-mouse-hover .tf-mouse.hover {
+.main-mouse-hover:hover .tf-mouse,
+.main-mouse-hover:focus-within .tf-mouse {
   opacity: 1;
 }
 
